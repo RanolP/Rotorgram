@@ -28,6 +28,10 @@ public abstract class MessageEvent<T extends Message> extends CallableEvent {
 		return getMessage().getChat();
 	}
 
+	public long getChatId() {
+		return getChat().getId();
+	}
+
 	public User getMessageSender() {
 		return getMessage().getFrom();
 	}

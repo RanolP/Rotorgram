@@ -24,6 +24,10 @@ public class Message {
 		type = parseType(message);
 	}
 
+	public long getId() {
+		return message.id;
+	}
+
 	public User getFrom() {
 		return from;
 	}
@@ -67,8 +71,6 @@ public class Message {
 			return MessageType.CONTACT;
 		} else if (message.document != null) {
 			return MessageType.DOCUMENT;
-		} else if (false) {
-			return MessageType.FILE;
 		} else if (message.sticker != null) {
 			return MessageType.STICKER;
 		} else if (message.text != null) {
@@ -83,5 +85,14 @@ public class Message {
 			return MessageType.IMAGE;
 		}
 		return MessageType.UNKNOWN;
+	}
+
+	@Override
+	public String toString() {
+		return "Message {" +
+				", from=" + from +
+				", chat=" + chat +
+				", type=" + type +
+				'}';
 	}
 }

@@ -1,6 +1,7 @@
 package me.ranol.rotorgram.api.object;
 
 import me.ranol.rotorgram.gson.GsonChat;
+import me.ranol.rotorgram.utils.Util;
 
 public class Chat {
 	private GsonChat chat;
@@ -20,5 +21,9 @@ public class Chat {
 
 	public String getTitle() {
 		return chat.title;
+	}
+
+	public long getId() {
+		return Util.convert(chat.id);
 	}
 }

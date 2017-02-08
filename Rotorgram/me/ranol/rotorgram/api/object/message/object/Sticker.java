@@ -2,15 +2,9 @@ package me.ranol.rotorgram.api.object.message.object;
 
 import me.ranol.rotorgram.gson.message.GsonSticker;
 
-public class Sticker {
-	private GsonSticker handle;
-
-	public Sticker(GsonSticker sticker) {
-		handle = sticker;
-		initialize();
-	}
-
-	private void initialize() {
+public class Sticker extends TFile<GsonSticker> {
+	public Sticker(GsonSticker file) {
+		super(file);
 	}
 
 	public String getEmoji() {
@@ -23,5 +17,9 @@ public class Sticker {
 
 	public String getId() {
 		return handle.id;
+	}
+
+	public void send(Long chatId){
+
 	}
 }

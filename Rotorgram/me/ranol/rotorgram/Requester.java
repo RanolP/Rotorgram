@@ -1,6 +1,7 @@
 package me.ranol.rotorgram;
 
 import com.google.gson.JsonElement;
+import me.ranol.rotorgram.gson.message.GsonFile;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,12 +10,34 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class Requester {
 	private static final String API_URL = "https://api.telegram.org/";
+	private static final String FILE_URL = "https://api.telegram.org/files/";
+
+	public static boolean download(String path, File to) {
+		try {
+			HttpPost post = new HttpPost(FILE_URL + "bot" + Static.getBotToken() + "/" + path);
+			HttpClient c = HttpClientBuilder.create().build();
+			HttpResponse r = c.execute(post);
+			byte[] array = new byte[0];
+			try (InputStream s = r.getEntity().getContent()) {
+				array = new byte[s.available()];
+				s.read(array);
+			}
+			Files.write(to.toPath(), array);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	private static JsonElement request0(String url, Map<String, String> entries) {
 		try {

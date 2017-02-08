@@ -11,7 +11,7 @@ public class StickerMessage extends Message {
 		initialize();
 	}
 
-	public void initialize() {
+	private void initialize() {
 		sticker = new Sticker(message.sticker);
 	}
 

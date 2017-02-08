@@ -17,4 +17,16 @@ public class StickerMessageEvent extends MessageEvent<StickerMessage> {
 	public Sticker getSticker() {
 		return getMessage().getSticker();
 	}
+
+	public String getStickerEmoji() {
+		return getSticker().getEmoji();
+	}
+
+	public String getStickerId() {
+		return getSticker().getId();
+	}
+
+	public boolean hasEmoji() {
+		return getSticker().hasEmoji();
+	}
 }

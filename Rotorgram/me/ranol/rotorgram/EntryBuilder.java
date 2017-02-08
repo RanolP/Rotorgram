@@ -6,6 +6,7 @@ public class EntryBuilder {
 	private HashMap<String, String> map = new HashMap<>();
 
 	public EntryBuilder add(String k, String v) {
+		System.out.println(k + "=" + v);
 		map.put(k, v);
 		return this;
 	}

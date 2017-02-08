@@ -2,16 +2,20 @@ package me.ranol.rotorgram;
 
 import com.google.gson.JsonElement;
 import me.ranol.rotorgram.annotations.Required;
+import me.ranol.rotorgram.api.BotProperty;
 import me.ranol.rotorgram.api.event.*;
 import me.ranol.rotorgram.api.event.message.SimpleMessageEvent;
 import me.ranol.rotorgram.api.event.message.StickerMessageEvent;
 import me.ranol.rotorgram.api.event.message.TextMessageEvent;
+import me.ranol.rotorgram.api.event.user.UserJoinEvent;
+import me.ranol.rotorgram.api.event.user.UserLeftEvent;
 import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.gson.GsonChat;
 import me.ranol.rotorgram.gson.GsonUser;
 import me.ranol.rotorgram.gson.inline.InlineQueryResult;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class TelegramBot extends Listener {
@@ -19,6 +23,7 @@ public class TelegramBot extends Listener {
 	private UpdateLooper looper;
 	private ListenerSet listener = new ListenerSet();
 	private GsonUser me;
+	private BotProperty prop;
 
 	public String getToken() {
 		return token;
@@ -29,30 +34,28 @@ public class TelegramBot extends Listener {
 	}
 
 	public final void start() {
-		try {
-			me = GsonManager.parse(Requester.request("getMe")
-											.getAsJsonObject()
-											.get("result"), GsonUser.class);
-			if (token == null) throw new IllegalStateException("Token must be non-null value.");
-			looper = new UpdateLooper();
-			Static.setBot(this);
-			System.out.println("이 봇은 Rotorgram을 사용합니다.");
-			System.out.println("절대로 프로세스 강제종료, 창 닫기 등이 아닌, 콘솔에 키를 입력하여 종료해주세요.");
-			System.out.println("아무 키를 누르면 종료합니다.");
-			listeners();
-			onStart();
-			listener.addListener(this);
-			new Thread(() -> {
-				try {
-					System.in.read();
-					System.out.println("사용해주셔서 감사합니다, 봇이 종료되었습니다.");
-					stop();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}).start();
-		} catch (Exception e) {
-		}
+		me = GsonManager.parse(Requester.request("getMe")
+										.getAsJsonObject()
+										.get("result"), GsonUser.class);
+		if (token == null) throw new IllegalStateException("Token must be non-null value.");
+		prop = new BotProperty(new File(System.getProperty("user.dir"), "BotConfig.json"));
+		looper = new UpdateLooper();
+		Static.setBot(this);
+		System.out.println("이 봇은 Rotorgram을 사용합니다.");
+		System.out.println("절대로 프로세스 강제종료, 창 닫기 등이 아닌, 콘솔에 키를 입력하여 종료해주세요.");
+		System.out.println("아무 키를 누르면 종료합니다.");
+		listeners();
+		onStart();
+		listener.addListener(this);
+		new Thread(() -> {
+			try {
+				System.in.read();
+				System.out.println("사용해주셔서 감사합니다, 봇이 종료되었습니다.");
+				stop();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}).start();
 	}
 
 	private final void listeners() {
@@ -72,17 +75,14 @@ public class TelegramBot extends Listener {
 					case DOCUMENT:
 						Static.callEvent(new SimpleMessageEvent(incoming));
 						break;
-					case FILE:
-						Static.callEvent(new SimpleMessageEvent(incoming));
-						break;
 					case GROUP_CREATE:
 						Static.callEvent(new SimpleMessageEvent(incoming));
 						break;
 					case JOIN_USER:
-						Static.callEvent(new SimpleMessageEvent(incoming));
+						Static.callEvent(new UserJoinEvent(incoming));
 						break;
 					case LEFT_USER:
-						Static.callEvent(new SimpleMessageEvent(incoming));
+						Static.callEvent(new UserLeftEvent(incoming));
 						break;
 					case PINNING_MESSAGE:
 						Static.callEvent(new SimpleMessageEvent(incoming));
@@ -179,5 +179,13 @@ public class TelegramBot extends Listener {
 
 	public ListenerSet getListeners() {
 		return listener;
+	}
+
+	public BotProperty getProperty() {
+		return prop;
+	}
+
+	public void saveProperty() {
+		prop.save();
 	}
 }
