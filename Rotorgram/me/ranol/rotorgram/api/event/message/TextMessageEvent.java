@@ -1,6 +1,5 @@
-package me.ranol.rotorgram.api.event;
+package me.ranol.rotorgram.api.event.message;
 
-import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.api.object.message.TextMessage;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 

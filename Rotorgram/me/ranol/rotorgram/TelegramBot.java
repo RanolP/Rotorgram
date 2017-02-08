@@ -3,6 +3,9 @@ package me.ranol.rotorgram;
 import com.google.gson.JsonElement;
 import me.ranol.rotorgram.annotations.Required;
 import me.ranol.rotorgram.api.event.*;
+import me.ranol.rotorgram.api.event.message.SimpleMessageEvent;
+import me.ranol.rotorgram.api.event.message.StickerMessageEvent;
+import me.ranol.rotorgram.api.event.message.TextMessageEvent;
 import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.gson.GsonChat;
 import me.ranol.rotorgram.gson.GsonUser;
@@ -58,17 +61,41 @@ public class TelegramBot extends Listener {
 				GsonMessage incoming = e.update.incomingMessage;
 				switch (Message.parseType(incoming)) {
 					case AUDIO:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case CHANNEL_CREATE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case CONTACT:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case DOCUMENT:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case FILE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case GROUP_CREATE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case JOIN_USER:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case LEFT_USER:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case PINNING_MESSAGE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case REMOVE_CHAT_PHOTO:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case SET_CHAT_PHOTO:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case STICKER:
+						Static.callEvent(new StickerMessageEvent(incoming));
+						break;
 					case SUPER_GROUP_CREATE:
 						Static.callEvent(new SimpleMessageEvent(incoming));
 						break;
@@ -76,8 +103,14 @@ public class TelegramBot extends Listener {
 						Static.callEvent(new TextMessageEvent(incoming));
 						break;
 					case VENUE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case VIDEO:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case VOICE:
+						Static.callEvent(new SimpleMessageEvent(incoming));
+						break;
 					case UNKNOWN:
 					default:
 						Static.callEvent(new SimpleMessageEvent(incoming));

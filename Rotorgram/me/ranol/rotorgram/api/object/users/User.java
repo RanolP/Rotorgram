@@ -12,4 +12,20 @@ public class User {
 	public String getUsername() {
 		return user.username;
 	}
+
+	public Long getId() {
+		return user.id;
+	}
+
+	public String getFirstName() {
+		return user.firstName;
+	}
+
+	public boolean hasFirstName() {
+		return getFirstName() != null;
+	}
+
+	public String getLastName() {
+		return user.lastName;
+	}
 }

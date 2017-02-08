@@ -1,17 +1,13 @@
 package me.ranol.rotorgram;
 
 import me.ranol.rotorgram.api.event.InlineQueryEvent;
-import me.ranol.rotorgram.api.event.SimpleMessageEvent;
-import me.ranol.rotorgram.api.event.TextMessageEvent;
-import me.ranol.rotorgram.api.object.inline.QueryResult;
+import me.ranol.rotorgram.api.event.message.SimpleMessageEvent;
+import me.ranol.rotorgram.api.event.message.TextMessageEvent;
 import me.ranol.rotorgram.api.object.inline.TextQueryResult;
 import me.ranol.rotorgram.gson.inline.InlineQueryResult;
-import me.ranol.rotorgram.gson.inline.content.InputTextMessageContent;
-import me.ranol.rotorgram.gson.inline.result.InlineQueryResultArticle;
 
 public class TestRanolBot extends TelegramBot {
 	TextQueryResult result = new TextQueryResult();
-	num
 
 	{
 		result.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
