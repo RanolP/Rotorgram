@@ -1,0 +1,23 @@
+package me.ranol.rotorgram.api.object.message;
+
+public enum MessageType {
+	CHANNEL_CREATE,
+	GROUP_CREATE,
+	SUPER_GROUP_CREATE,
+	JOIN_USER,
+	LEFT_USER,
+	PINNING_MESSAGE,
+	TEXT,
+	STICKER,
+	AUDIO,
+	DOCUMENT,
+	FILE,
+	CONTACT,
+	VENUE,
+	VIDEO,
+	VOICE,
+	SET_CHAT_PHOTO,
+	REMOVE_CHAT_PHOTO,
+	IMAGE,
+	UNKNOWN
+}
