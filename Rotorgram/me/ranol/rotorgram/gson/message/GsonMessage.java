@@ -9,6 +9,8 @@ import me.ranol.rotorgram.gson.GsonLocation;
 import me.ranol.rotorgram.gson.GsonPhotoSize;
 import me.ranol.rotorgram.gson.GsonUser;
 
+import java.util.Arrays;
+
 public class GsonMessage {
 	@SerializedName("message_id")
 	public final Long id = null;
@@ -65,4 +67,43 @@ public class GsonMessage {
 	@SerializedName("pinned_message")
 	public final GsonMessage pinnedMessage = null;
 
+	@Override
+	public String toString() {
+		return "GsonMessage{" +
+				"id=" + id +
+				", fromUser=" + fromUser +
+				", date=" + date +
+				", chat=" + chat +
+				", forwardFromUser=" + forwardFromUser +
+				", forwardFromChat=" + forwardFromChat +
+				", forwardFromId=" + forwardFromId +
+				", forwardDate=" + forwardDate +
+				", reply=" + reply +
+				", editDate=" + editDate +
+				", text='" + text + '\'' +
+				", entities=" + Arrays.toString(entities) +
+				", audio=" + audio +
+				", document=" + document +
+				", game=" + game +
+				", photo=" + Arrays.toString(photo) +
+				", sticker=" + sticker +
+				", video=" + video +
+				", voice=" + voice +
+				", caption='" + caption + '\'' +
+				", contact=" + contact +
+				", location=" + location +
+				", venue=" + venue +
+				", newMember=" + newMember +
+				", leftMember=" + leftMember +
+				", newTitle='" + newTitle + '\'' +
+				", newPhoto=" + Arrays.toString(newPhoto) +
+				", deleteChatPhoto=" + deleteChatPhoto +
+				", groupCreated=" + groupCreated +
+				", superGroupCreated=" + superGroupCreated +
+				", channelCreated=" + channelCreated +
+				", migrateToId=" + migrateToId +
+				", migrateFromId=" + migrateFromId +
+				", pinnedMessage=" + pinnedMessage +
+				'}';
+	}
 }

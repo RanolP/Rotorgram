@@ -7,15 +7,16 @@ import me.ranol.rotorgram.api.event.message.TextMessageEvent;
 import me.ranol.rotorgram.api.event.user.UserJoinEvent;
 import me.ranol.rotorgram.api.event.user.UserLeftEvent;
 import me.ranol.rotorgram.api.object.inline.TextQueryResult;
-import me.ranol.rotorgram.api.object.message.TextMessage;
 import me.ranol.rotorgram.api.object.message.builder.TextMessageBuilder;
-import me.ranol.rotorgram.gson.inline.InlineQueryResult;
+import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
 
 public class TestRanolBot extends TelegramBot {
-	TextQueryResult result = new TextQueryResult();
+	TextQueryResult xkd = new TextQueryResult();
+	TextQueryResult finalchild = new TextQueryResult();
 
 	{
-		result.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
+		xkd.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
+		finalchild.setVisibleString("파차님 찬양").setString("*파차님 갱장헤!*").setParseMode("MARKDOWN");
 	}
 
 	@Override
@@ -69,10 +70,21 @@ public class TestRanolBot extends TelegramBot {
 			System.out.println((room + " " + user + " : " + e.getMessageType()).trim());
 		});
 		registerListener(InlineQueryEvent.class, e -> {
-			switch (e.query.query) {
+			switch (e.getQueryText()) {
 				case "":
+					answerInlineQuery(e.getQueryId(),
+									  new GsonInlineQueryResult[] {finalchild.get(), xkd.get()},
+									  null,
+									  null, null,
+									  null);
+					break;
 				case "xkd":
-					answerInlineQuery(e.query.id, new InlineQueryResult[] {result.get(e.query.id)}, null, null, null,
+					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {xkd.get()}, null, null, null,
+									  null);
+					break;
+				case "fc":
+					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {finalchild.get()}, null, null,
+									  null,
 									  null);
 					break;
 			}

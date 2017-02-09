@@ -9,4 +9,13 @@ public class GsonFile {
 	public final Long fileSize = null;
 	@SerializedName("file_path")
 	public final String filePath = null;
+
+	@Override
+	public String toString() {
+		return "GsonFile{" +
+				"id='" + id + '\'' +
+				", fileSize=" + fileSize +
+				", filePath='" + filePath + '\'' +
+				'}';
+	}
 }

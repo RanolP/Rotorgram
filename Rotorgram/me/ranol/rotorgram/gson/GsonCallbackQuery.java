@@ -16,4 +16,17 @@ public class GsonCallbackQuery {
 	public final String data = null;
 	@SerializedName("game_short_name")
 	public final String gameShortName = null;
+
+	@Override
+	public String toString() {
+		return "GsonCallbackQuery{" +
+				"id='" + id + '\'' +
+				", fromUser=" + fromUser +
+				", message=" + message +
+				", inlineMessageId='" + inlineMessageId + '\'' +
+				", chatInstance='" + chatInstance + '\'' +
+				", data='" + data + '\'' +
+				", gameShortName='" + gameShortName + '\'' +
+				'}';
+	}
 }

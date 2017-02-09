@@ -2,7 +2,7 @@ package me.ranol.rotorgram.gson.inline;
 
 import com.google.gson.annotations.SerializedName;
 
-public class InlineKeyboardMarkup {
+public class GsonInlineKeyboardMarkup {
 	@SerializedName("inline_keyboard")
-	public final InlineKeyboardButton[][] keyboard = null;
+	public final GsonInlineKeyboardButton[][] keyboard = null;
 }

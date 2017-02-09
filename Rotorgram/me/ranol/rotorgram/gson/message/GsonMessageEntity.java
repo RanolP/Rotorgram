@@ -8,4 +8,15 @@ public class GsonMessageEntity {
 	public final Long length = null;
 	public final String url = null;
 	public final GsonUser user = null;
+
+	@Override
+	public String toString() {
+		return "GsonMessageEntity{" +
+				"type='" + type + '\'' +
+				", offset=" + offset +
+				", length=" + length +
+				", url='" + url + '\'' +
+				", user=" + user +
+				'}';
+	}
 }

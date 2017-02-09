@@ -8,6 +8,7 @@ import me.ranol.rotorgram.api.event.CallableEvent;
 public class Static {
 	private TelegramBot bot;
 
+
 	private static final class Singleton {
 		static final Static instance = new Static();
 	}
@@ -51,7 +52,6 @@ public class Static {
 	}
 
 	public static void callEvent(CallableEvent e) {
-		getBot().getListeners()
-				.callEvent(e);
+		getBot().callEvent(e);
 	}
 }

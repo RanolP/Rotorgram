@@ -9,4 +9,14 @@ public class GsonUser {
 	@SerializedName("last_name")
 	public final String lastName = null;
 	public final String username = null;
+
+	@Override
+	public String toString() {
+		return "GsonUser{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", username='" + username + '\'' +
+				'}';
+	}
 }

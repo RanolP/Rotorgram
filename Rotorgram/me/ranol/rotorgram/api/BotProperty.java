@@ -18,6 +18,13 @@ public class BotProperty {
 	}
 
 	public void load() {
+		if (!target.exists()) {
+			try {
+				target.createNewFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		prop = GsonManager.load(target);
 	}
 

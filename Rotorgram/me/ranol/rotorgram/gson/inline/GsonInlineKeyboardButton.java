@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import me.ranol.rotorgram.gson.GsonCallbackGame;
 
-public class InlineKeyboardButton {
+public class GsonInlineKeyboardButton {
 	public final String text = null;
 	public final String url = null;
 	@SerializedName("callback_data")

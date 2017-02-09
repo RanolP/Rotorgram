@@ -1,21 +1,20 @@
 package me.ranol.rotorgram.api.event;
 
-import java.util.List;
-import java.util.Map.Entry;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ListenerSet extends Listener {
+	private Set<Listener> listeners = new HashSet<>();
+
 	public void addListener(Listener listener) {
-		for (Entry<Class<CallableEvent>, List<EventListener<CallableEvent>>> e : listener.registerSet()
-			.entrySet()) {
-			Class<CallableEvent> clazz = e.getKey();
-			for (EventListener<CallableEvent> l : e.getValue()) {
-				registerListener(clazz, l);
-			}
-		}
+		listeners.add(listener);
 	}
-	
+
 	@Override
 	public void callEvent(CallableEvent e) {
 		super.callEvent(e);
+		for (Listener l : listeners) {
+			l.callEvent(e);
+		}
 	}
 }

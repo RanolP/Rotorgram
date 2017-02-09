@@ -11,4 +11,14 @@ public class GsonContact {
 	public final String lastName = null;
 	@SerializedName("user_id")
 	public final Long userId = null;
+
+	@Override
+	public String toString() {
+		return "GsonContact{" +
+				"phone='" + phone + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", userId=" + userId +
+				'}';
+	}
 }

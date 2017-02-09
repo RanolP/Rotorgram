@@ -8,4 +8,13 @@ public class KeyboardButton {
 	public final Boolean requestContact = null;
 	@SerializedName("request_location")
 	public final Boolean requestLocation = null;
+
+	@Override
+	public String toString() {
+		return "KeyboardButton{" +
+				"text='" + text + '\'' +
+				", requestContact=" + requestContact +
+				", requestLocation=" + requestLocation +
+				'}';
+	}
 }

@@ -1,5 +1,5 @@
 package me.ranol.rotorgram.gson.inline.content;
 
-public class InputMessageContent {
+public class GsonInputMessageContent {
 
 }

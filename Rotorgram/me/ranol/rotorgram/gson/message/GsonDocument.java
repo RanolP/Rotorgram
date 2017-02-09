@@ -11,4 +11,13 @@ public class GsonDocument extends GsonFile {
 	public final String name = null;
 	@SerializedName("mime_type")
 	public final String mimeType = null;
+
+	@Override
+	public String toString() {
+		return "GsonDocument{" +
+				"thumbnail=" + thumbnail +
+				", name='" + name + '\'' +
+				", mimeType='" + mimeType + '\'' +
+				'}';
+	}
 }

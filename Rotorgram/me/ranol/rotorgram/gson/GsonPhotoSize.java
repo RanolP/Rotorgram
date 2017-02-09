@@ -9,4 +9,14 @@ public class GsonPhotoSize {
 	public final Long height = null;
 	@SerializedName("file_size")
 	public final Long size = null;
+
+	@Override
+	public String toString() {
+		return "GsonPhotoSize{" +
+				"id='" + id + '\'' +
+				", width=" + width +
+				", height=" + height +
+				", size=" + size +
+				'}';
+	}
 }

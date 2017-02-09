@@ -2,8 +2,8 @@ package me.ranol.rotorgram.gson;
 
 import com.google.gson.annotations.SerializedName;
 
-import me.ranol.rotorgram.gson.inline.ChosenInlineResult;
-import me.ranol.rotorgram.gson.inline.InlineQuery;
+import me.ranol.rotorgram.gson.inline.GsonChosenInlineResult;
+import me.ranol.rotorgram.gson.inline.GsonInlineQuery;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 
 public class GsonUpdate {
@@ -18,9 +18,9 @@ public class GsonUpdate {
 	@SerializedName("edited_channel_post")
 	public final GsonMessage editedChannelPost = null;
 	@SerializedName("inline_query")
-	public final InlineQuery inlineQuery = null;
+	public final GsonInlineQuery inlineQuery = null;
 	@SerializedName("chosen_inline_result")
-	public final ChosenInlineResult chosenInlineResult = null;
+	public final GsonChosenInlineResult chosenInlineResult = null;
 	@SerializedName("callback_query")
 	public final GsonCallbackQuery callbackQuery = null;
 }

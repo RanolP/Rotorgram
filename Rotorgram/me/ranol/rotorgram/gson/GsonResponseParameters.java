@@ -7,4 +7,12 @@ public class GsonResponseParameters {
 	public Long migrateToId = null;
 	@SerializedName("retry_after")
 	public Long retryAfter = null;
+
+	@Override
+	public String toString() {
+		return "GsonResponseParameters{" +
+				"migrateToId=" + migrateToId +
+				", retryAfter=" + retryAfter +
+				'}';
+	}
 }

@@ -10,4 +10,14 @@ public class GsonVenue {
 	public final String address = null;
 	@SerializedName("foursquare_id")
 	public final String foursquareId = null;
+
+	@Override
+	public String toString() {
+		return "GsonVenue{" +
+				"location=" + location +
+				", title='" + title + '\'' +
+				", address='" + address + '\'' +
+				", foursquareId='" + foursquareId + '\'' +
+				'}';
+	}
 }

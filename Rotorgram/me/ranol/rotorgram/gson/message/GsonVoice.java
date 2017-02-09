@@ -6,4 +6,12 @@ public class GsonVoice extends GsonFile {
 	public final Long duration = null;
 	@SerializedName("mime_type")
 	public final String mimeType = null;
+
+	@Override
+	public String toString() {
+		return "GsonVoice{" +
+				"duration=" + duration +
+				", mimeType='" + mimeType + '\'' +
+				'}';
+	}
 }

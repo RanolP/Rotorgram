@@ -6,4 +6,12 @@ public class GsonForceReply {
 	@SerializedName("force_reply")
 	public Boolean forceReply = false;
 	public Boolean selective = false;
+
+	@Override
+	public String toString() {
+		return "GsonForceReply{" +
+				"forceReply=" + forceReply +
+				", selective=" + selective +
+				'}';
+	}
 }

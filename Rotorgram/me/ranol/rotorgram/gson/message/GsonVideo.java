@@ -12,4 +12,15 @@ public class GsonVideo extends GsonFile {
 	public final GsonPhotoSize thumbnail = null;
 	@SerializedName("mime_type")
 	public final String mimeType = null;
+
+	@Override
+	public String toString() {
+		return "GsonVideo{" +
+				"width=" + width +
+				", height=" + height +
+				", duration=" + duration +
+				", thumbnail=" + thumbnail +
+				", mimeType='" + mimeType + '\'' +
+				'}';
+	}
 }

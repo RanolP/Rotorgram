@@ -1,15 +1,15 @@
 package me.ranol.rotorgram.api.object.inline;
 
-import me.ranol.rotorgram.gson.inline.content.InputTextMessageContent;
-import me.ranol.rotorgram.gson.inline.result.InlineQueryResultArticle;
+import me.ranol.rotorgram.gson.inline.content.GsonInputTextMessageContent;
+import me.ranol.rotorgram.gson.inline.result.GsonInlineQueryResultArticle;
 
-public class TextQueryResult extends QueryResult<InlineQueryResultArticle, InputTextMessageContent> {
+public class TextQueryResult extends QueryResult<GsonInlineQueryResultArticle, GsonInputTextMessageContent> {
 	{
 		content.parseMode = "";
 	}
 
 	public TextQueryResult() {
-		super(new InlineQueryResultArticle(), new InputTextMessageContent());
+		super(new GsonInlineQueryResultArticle(), new GsonInputTextMessageContent());
 	}
 
 	public TextQueryResult setVisibleString(String val) {

@@ -9,4 +9,14 @@ public class GsonAudio extends GsonFile {
 	public final String title = null;
 	@SerializedName("mime_type")
 	public final String mimeType = null;
+
+	@Override
+	public String toString() {
+		return "GsonAudio{" +
+				"duration=" + duration +
+				", performer='" + performer + '\'' +
+				", title='" + title + '\'' +
+				", mimeType='" + mimeType + '\'' +
+				'}';
+	}
 }

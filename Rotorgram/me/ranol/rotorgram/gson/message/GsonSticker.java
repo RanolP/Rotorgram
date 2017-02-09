@@ -10,4 +10,14 @@ public class GsonSticker extends GsonFile {
 	@SerializedName("thumb")
 	public final GsonPhotoSize thumbnail = null;
 	public final String emoji = null;
+
+	@Override
+	public String toString() {
+		return "GsonSticker{" +
+				"width=" + width +
+				", height=" + height +
+				", thumbnail=" + thumbnail +
+				", emoji='" + emoji + '\'' +
+				'}';
+	}
 }

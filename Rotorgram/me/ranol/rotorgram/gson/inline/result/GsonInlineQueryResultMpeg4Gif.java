@@ -3,11 +3,10 @@ package me.ranol.rotorgram.gson.inline.result;
 import com.google.gson.annotations.SerializedName;
 
 import me.ranol.rotorgram.annotations.Required;
-import me.ranol.rotorgram.gson.inline.InlineKeyboardMarkup;
-import me.ranol.rotorgram.gson.inline.InlineQueryResult;
-import me.ranol.rotorgram.gson.inline.content.InputMessageContent;
+import me.ranol.rotorgram.gson.inline.GsonInlineKeyboardMarkup;
+import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
 
-public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
+public class GsonInlineQueryResultMpeg4Gif extends GsonInlineQueryResult {
 	@Required
 	public final String type = "mpeg4_gif";
 	@Required
@@ -23,5 +22,5 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
 	public String title;
 	public String caption;
 	@SerializedName("reply_markup")
-	public InlineKeyboardMarkup replyMarkup;
+	public GsonInlineKeyboardMarkup replyMarkup;
 }
