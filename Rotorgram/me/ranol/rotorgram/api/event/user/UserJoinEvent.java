@@ -6,13 +6,8 @@ import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 
 public class UserJoinEvent extends MessageEvent<JoinMessage> {
-	public UserJoinEvent(GsonMessage message) {
+	public UserJoinEvent(JoinMessage message) {
 		super(message);
-	}
-
-	@Override
-	public JoinMessage convert(GsonMessage msg) {
-		return new JoinMessage(msg);
 	}
 
 	public User getJoinedUser() {

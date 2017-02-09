@@ -7,14 +7,12 @@ import me.ranol.rotorgram.api.object.message.MessageType;
 import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 
-public abstract class MessageEvent<T extends Message> extends CallableEvent {
+public class MessageEvent<T extends Message> extends CallableEvent {
 	private final T message;
 
-	public MessageEvent(GsonMessage message) {
-		this.message = convert(message);
+	public MessageEvent(T message) {
+		this.message = message;
 	}
-
-	public abstract T convert(GsonMessage msg);
 
 	public T getMessage() {
 		return message;

@@ -12,7 +12,7 @@ public class StickerMessage extends Message {
 	}
 
 	private void initialize() {
-		sticker = new Sticker(message.sticker);
+		sticker = new Sticker(handle.sticker);
 	}
 
 	public Sticker getSticker() {

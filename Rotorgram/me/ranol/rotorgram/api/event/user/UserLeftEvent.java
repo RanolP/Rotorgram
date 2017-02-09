@@ -7,13 +7,8 @@ import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 
 public class UserLeftEvent extends MessageEvent<LeftMessage> {
-	public UserLeftEvent(GsonMessage message) {
+	public UserLeftEvent(LeftMessage message) {
 		super(message);
-	}
-
-	@Override
-	public LeftMessage convert(GsonMessage msg) {
-		return new LeftMessage(msg);
 	}
 
 	public User getLeftedUser() {

@@ -9,10 +9,6 @@ public class TextMessage extends Message {
 	}
 
 	public String getText() {
-		return message.text;
-	}
-
-	public TextMessageBuilder builder() {
-		return new TextMessageBuilder().message(getText());
+		return handle.text;
 	}
 }

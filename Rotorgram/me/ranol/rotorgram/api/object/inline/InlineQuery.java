@@ -1,14 +1,14 @@
 package me.ranol.rotorgram.api.object.inline;
 
+import me.ranol.rotorgram.api.object.Validatable;
 import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.inline.GsonInlineQuery;
 
-public class InlineQuery {
-	private GsonInlineQuery handle;
+public class InlineQuery extends Validatable<GsonInlineQuery> {
 	private User from;
 
 	public InlineQuery(GsonInlineQuery handle) {
-		this.handle = handle;
+		super(handle);
 		from = new User(handle.fromUser);
 	}
 

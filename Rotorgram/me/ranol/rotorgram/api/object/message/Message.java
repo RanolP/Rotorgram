@@ -1,31 +1,31 @@
 package me.ranol.rotorgram.api.object.message;
 
 import me.ranol.rotorgram.api.object.Chat;
+import me.ranol.rotorgram.api.object.Validatable;
 import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.message.GsonMessage;
 import me.ranol.rotorgram.utils.Util;
 
 import java.util.Objects;
 
-public class Message {
-	protected GsonMessage message;
+public class Message extends Validatable<GsonMessage> {
 	private User from;
 	private Chat chat;
 	private MessageType type;
 
 	public Message(GsonMessage message) {
-		this.message = message;
+		super(message);
 		initialize();
 	}
 
 	private void initialize() {
-		from = new User(message.fromUser);
-		chat = new Chat(message.chat);
-		type = parseType(message);
+		from = new User(handle.fromUser);
+		chat = new Chat(handle.chat);
+		type = parseType(handle);
 	}
 
 	public long getId() {
-		return message.id;
+		return handle.id;
 	}
 
 	public User getFrom() {

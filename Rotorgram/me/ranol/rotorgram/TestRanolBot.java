@@ -13,10 +13,12 @@ import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
 public class TestRanolBot extends TelegramBot {
 	TextQueryResult xkd = new TextQueryResult();
 	TextQueryResult finalchild = new TextQueryResult();
+	TextQueryResult ggung = new TextQueryResult();
 
 	{
 		xkd.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
 		finalchild.setVisibleString("파차님 찬양").setString("*파차님 갱장헤!*").setParseMode("MARKDOWN");
+		ggung.setVisibleString("껑아").setString("*GgungAh* 껑아").setParseMode("MARKDOWN");
 	}
 
 	@Override

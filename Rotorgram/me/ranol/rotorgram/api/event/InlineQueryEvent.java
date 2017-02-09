@@ -6,8 +6,8 @@ import me.ranol.rotorgram.gson.inline.GsonInlineQuery;
 public class InlineQueryEvent extends CallableEvent {
 	private final InlineQuery query;
 
-	public InlineQueryEvent(GsonInlineQuery query) {
-		this.query = new InlineQuery(query);
+	public InlineQueryEvent(InlineQuery query) {
+		this.query = query;
 	}
 
 	public InlineQuery getQuery() {

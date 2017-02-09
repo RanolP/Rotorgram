@@ -8,7 +8,7 @@ public class CaptionedMessage extends Message {
 	}
 
 	public String getCaption() {
-		return message.caption;
+		return handle.caption;
 	}
 
 	public boolean hasCaption() {

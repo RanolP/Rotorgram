@@ -1,16 +1,16 @@
 package me.ranol.rotorgram.api.object.message.object;
 
 import me.ranol.rotorgram.Requester;
+import me.ranol.rotorgram.api.object.Validatable;
 import me.ranol.rotorgram.gson.message.GsonFile;
 import me.ranol.rotorgram.utils.Util;
 
 import java.io.File;
 
-public class TFile<T extends GsonFile> {
-	T handle;
+public class TFile<T extends GsonFile> extends Validatable<T> {
 
 	public TFile(T file) {
-		this.handle = file;
+		super(file);
 	}
 
 	public String getId() {
