@@ -4,8 +4,8 @@ import com.google.gson.JsonElement;
 import me.ranol.rotorgram.annotations.Required;
 import me.ranol.rotorgram.api.BotProperty;
 import me.ranol.rotorgram.api.event.*;
-import me.ranol.rotorgram.gson.GsonChat;
-import me.ranol.rotorgram.gson.GsonUser;
+import me.ranol.rotorgram.api.object.chat.Chat;
+import me.ranol.rotorgram.api.object.users.User;
 import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class TelegramBot extends ListenerSet {
 	private String token;
 	private UpdateLooper looper;
-	private GsonUser me;
+	private User me;
 	private BotProperty prop;
 
 	public String getToken() {
@@ -28,7 +28,7 @@ public class TelegramBot extends ListenerSet {
 	public final void start() {
 		me = GsonManager.parse(Requester.request("getMe")
 										.getAsJsonObject()
-										.get("result"), GsonUser.class);
+										.get("result"), User.class);
 		if (token == null) throw new IllegalStateException("Token must be non-null value.");
 		prop = new BotProperty(new File(System.getProperty("user.dir"), "BotConfig.json"));
 		looper = new UpdateLooper();
@@ -67,13 +67,13 @@ public class TelegramBot extends ListenerSet {
 
 	}
 
-	public GsonUser getMe() {
+	public User getMe() {
 		return me;
 	}
 
-	public JsonElement sendMessage(@Required GsonChat chat, @Required String message, Boolean notify, Long replyTo,
+	public JsonElement sendMessage(@Required Chat chat, @Required String message, Boolean notify, Long replyTo,
 								   String parseMode, Boolean webPagePreview) {
-		return sendMessage(chat.id, message, notify, replyTo, parseMode, webPagePreview);
+		return sendMessage(chat.getId(), message, notify, replyTo, parseMode, webPagePreview);
 	}
 
 	public JsonElement sendMessage(@Required Long chatId, @Required String message, Boolean notify, Long replyTo,

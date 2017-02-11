@@ -11,10 +11,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.ranol.rotorgram.api.abstraction.Attributable;
+import me.ranol.rotorgram.api.abstraction.AttributeSerializer;
+import me.ranol.rotorgram.api.abstraction.SimpleAttributable;
 
 public class GsonManager {
-	private static Gson gson = new GsonBuilder().setPrettyPrinting()
-		.create();
+	private static Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(SimpleAttributable.class,
+																			  new AttributeSerializer())
+												.setPrettyPrinting()
+												.create();
 	private static JsonParser parser = new JsonParser();
 
 	public static <T> T parse(JsonElement json, Class<T> clazz) {
@@ -46,7 +51,7 @@ public class GsonManager {
 	public static void save(JsonObject prop, File target) {
 		try {
 			Files.write(target.toPath(), gson.toJson(prop)
-				.getBytes(StandardCharsets.UTF_8));
+											 .getBytes(StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

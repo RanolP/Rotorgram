@@ -1,39 +1,36 @@
 package me.ranol.rotorgram.api.object.message;
 
-import me.ranol.rotorgram.api.object.Chat;
-import me.ranol.rotorgram.api.object.Validatable;
+import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.LongIdObject;
+import me.ranol.rotorgram.api.abstraction.keysets.MessageKeySet;
+import me.ranol.rotorgram.api.object.chat.Chat;
 import me.ranol.rotorgram.api.object.users.User;
-import me.ranol.rotorgram.gson.message.GsonMessage;
-import me.ranol.rotorgram.utils.Util;
 
-import java.util.Objects;
+import java.util.function.Supplier;
 
-public class Message extends Validatable<GsonMessage> {
-	private User from;
-	private Chat chat;
+public class Message extends TelegramObject implements LongIdObject, MessageKeySet {
+
 	private MessageType type;
 
-	public Message(GsonMessage message) {
-		super(message);
-		initialize();
-	}
-
-	private void initialize() {
-		from = new User(handle.fromUser);
-		chat = new Chat(handle.chat);
-		type = parseType(handle);
+	public Message() {
+		addKeys(MESSAGE_ID, FROM, DATE, CHAT, FORWARD_FROM, FORWARD_FROM_CHAT, FORWARD_FROM_ID,
+				FORWARD_DATE, REPLY_TO, EDIT_DATE, TEXT, ENTITIES, AUDIO, DOCUMENT, GAME, PHOTO, STICKER, VIDEO, VOICE,
+				CAPTION, CONTACT, LOCATION, VENUE, NEW_MEMBER, LEFT_MEMBER, NEW_TITLE, NEW_PHOTO, DELETE_CHAT_PHOTO,
+				GROUP_CREATED, SUPERGROUP_CREATED, CHANNEL_CREATED, MIGRATE_TO_CHAT_ID, MIGRATE_FROM_CHAT_ID,
+				PINNED_MESSAGE);
+		type = parseType(this);
 	}
 
 	public long getId() {
-		return handle.id;
+		return getLong(MESSAGE_ID);
 	}
 
 	public User getFrom() {
-		return from;
+		return get(FROM);
 	}
 
 	public boolean hasFrom() {
-		return getFrom() != null;
+		return contains(FROM);
 	}
 
 	public MessageType getType() {
@@ -41,58 +38,53 @@ public class Message extends Validatable<GsonMessage> {
 	}
 
 	public boolean hasChat() {
-		return getChat() != null;
+		return contains(CHAT);
 	}
 
 	public Chat getChat() {
-		return chat;
+		return get(CHAT);
 	}
 
-	public static MessageType parseType(GsonMessage message) {
-		if (Util.convert(message.channelCreated)) {
+	public <T extends Message> T parseAs(Supplier<T> instance) {
+		return mapping(instance.get(), this);
+	}
+
+	public static MessageType parseType(Message message) {
+		if (message.get(CHANNEL_CREATED)) {
 			return MessageType.CHANNEL_CREATE;
-		} else if (Util.convert(message.groupCreated)) {
+		} else if (message.get(GROUP_CREATED)) {
 			return MessageType.GROUP_CREATE;
-		} else if (Util.convert(message.superGroupCreated)) {
+		} else if (message.get(SUPERGROUP_CREATED)) {
 			return MessageType.SUPER_GROUP_CREATE;
-		} else if (message.newMember != null) {
+		} else if (message.contains(NEW_MEMBER)) {
 			return MessageType.JOIN_USER;
-		} else if (message.leftMember != null) {
+		} else if (message.contains(LEFT_MEMBER)) {
 			return MessageType.LEFT_USER;
-		} else if (message.pinnedMessage != null) {
+		} else if (message.contains(PINNED_MESSAGE)) {
 			return MessageType.PINNING_MESSAGE;
-		} else if (Util.convert(message.deleteChatPhoto)) {
+		} else if (message.get(DELETE_CHAT_PHOTO)) {
 			return MessageType.REMOVE_CHAT_PHOTO;
-		} else if (message.newPhoto != null) {
+		} else if (message.contains(NEW_PHOTO)) {
 			return MessageType.SET_CHAT_PHOTO;
-		} else if (message.audio != null) {
+		} else if (message.contains(AUDIO)) {
 			return MessageType.AUDIO;
-		} else if (message.contact != null) {
+		} else if (message.contains(CONTACT)) {
 			return MessageType.CONTACT;
-		} else if (message.document != null) {
+		} else if (message.contains(DOCUMENT)) {
 			return MessageType.DOCUMENT;
-		} else if (message.sticker != null) {
+		} else if (message.contains(STICKER)) {
 			return MessageType.STICKER;
-		} else if (message.text != null) {
+		} else if (message.contains(TEXT)) {
 			return MessageType.TEXT;
-		} else if (message.venue != null) {
+		} else if (message.contains(VENUE)) {
 			return MessageType.VENUE;
-		} else if (message.video != null) {
+		} else if (message.contains(VIDEO)) {
 			return MessageType.VIDEO;
-		} else if (message.voice != null) {
+		} else if (message.contains(VOICE)) {
 			return MessageType.VOICE;
-		} else if (message.photo != null) {
+		} else if (message.contains(PHOTO)) {
 			return MessageType.IMAGE;
 		}
 		return MessageType.UNKNOWN;
-	}
-
-	@Override
-	public String toString() {
-		return "Message {" +
-				", from=" + from +
-				", chat=" + chat +
-				", type=" + type +
-				'}';
 	}
 }

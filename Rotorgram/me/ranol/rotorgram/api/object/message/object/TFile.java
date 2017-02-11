@@ -1,28 +1,28 @@
 package me.ranol.rotorgram.api.object.message.object;
 
 import me.ranol.rotorgram.Requester;
-import me.ranol.rotorgram.api.object.Validatable;
-import me.ranol.rotorgram.gson.message.GsonFile;
-import me.ranol.rotorgram.utils.Util;
+import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.StringIdObject;
+import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
 
 import java.io.File;
 
-public class TFile<T extends GsonFile> extends Validatable<T> {
+public class TFile extends TelegramObject implements StringIdObject, OtherKeySet {
 
-	public TFile(T file) {
-		super(file);
+	public TFile() {
+		addKeys(FILE_ID, FILE_SIZE, FILE_PATH);
 	}
 
 	public String getId() {
-		return handle.id;
+		return getString(FILE_ID);
 	}
 
 	public String getPath() {
-		return handle.filePath;
+		return getString(FILE_PATH);
 	}
 
 	public long getSize() {
-		return Util.convert(handle.fileSize);
+		return getLong(FILE_SIZE);
 	}
 
 	public boolean download(File to) {

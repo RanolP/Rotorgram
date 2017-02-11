@@ -1,33 +1,22 @@
 package me.ranol.rotorgram.api.object.message;
 
 import me.ranol.rotorgram.api.object.message.object.Sticker;
-import me.ranol.rotorgram.gson.message.GsonMessage;
 
 public class StickerMessage extends Message {
-	private Sticker sticker;
-
-	public StickerMessage(GsonMessage message) {
-		super(message);
-		initialize();
-	}
-
-	private void initialize() {
-		sticker = new Sticker(handle.sticker);
-	}
 
 	public Sticker getSticker() {
-		return sticker;
+		return get(STICKER);
 	}
 
 	public String getStickerId() {
-		return sticker.getId();
+		return getSticker().getId();
 	}
 
 	public boolean hasEmoji() {
-		return sticker.hasEmoji();
+		return getSticker().hasEmoji();
 	}
 
 	public String getEmoji() {
-		return sticker.getEmoji();
+		return getSticker().getEmoji();
 	}
 }

@@ -3,7 +3,7 @@ package me.ranol.rotorgram;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.ranol.rotorgram.api.event.UpdateEvent;
-import me.ranol.rotorgram.gson.GsonUpdate;
+import me.ranol.rotorgram.api.object.Update;
 
 import java.util.Timer;
 
@@ -27,9 +27,10 @@ public class UpdateLooper {
 			JsonObject o = e.getAsJsonObject();
 			if (getBoolean(o, "ok")) {
 				long last = offset;
-				for (GsonUpdate u : GsonManager.parse(o.get("result"), GsonUpdate[].class)) {
-					if (u.id <= offset) continue;
-					if (u.id > last) last = u.id;
+				for (Update u : GsonManager.parse(o.get("result"), Update[].class)) {
+					System.out.println(u);
+					if (u.getId() <= offset) continue;
+					if (u.getId() > last) last = u.getId();
 					new Thread(() -> Static.callEvent(new UpdateEvent(u))).start();
 				}
 				if (offset < last) offset = last;
@@ -42,7 +43,7 @@ public class UpdateLooper {
 	}
 
 	public static boolean getBoolean(JsonObject o, String key) {
-		return hasBoolean(o, key) ? getBoolean(o.get(key)) : false;
+		return hasBoolean(o, key) && getBoolean(o.get(key));
 	}
 
 	public static boolean isBoolean(JsonElement e) {
@@ -51,6 +52,6 @@ public class UpdateLooper {
 	}
 
 	public static boolean getBoolean(JsonElement e) {
-		return isBoolean(e) ? e.getAsBoolean() : false;
+		return isBoolean(e) && e.getAsBoolean();
 	}
 }

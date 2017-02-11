@@ -1,4 +1,4 @@
-package me.ranol.rotorgram.api.object;
+package me.ranol.rotorgram.api.object.chat;
 
 public enum ChatType {
 	PRIVATE("private"),

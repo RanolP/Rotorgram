@@ -1,25 +1,24 @@
 package me.ranol.rotorgram.api.object.message.object;
 
-import me.ranol.rotorgram.gson.message.GsonSticker;
+import me.ranol.rotorgram.api.abstraction.interfaces.SizableObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.StringIdObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.ThumbnailObject;
+import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
 
-public class Sticker extends TFile<GsonSticker> {
-	public Sticker(GsonSticker file) {
-		super(file);
+public class Sticker extends TFile implements StringIdObject, OtherKeySet, SizableObject, ThumbnailObject {
+	public Sticker() {
+		addKeys(ID_STRING, EMOJI);
 	}
 
 	public String getEmoji() {
-		return handle.emoji;
+		return get(EMOJI);
 	}
 
 	public boolean hasEmoji() {
-		return getEmoji() != null;
+		return contains(EMOJI);
 	}
 
-	public String getId() {
-		return handle.id;
-	}
-
-	public void send(Long chatId){
+	public void send(Long chatId) {
 
 	}
 }

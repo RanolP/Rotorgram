@@ -1,11 +1,10 @@
 package me.ranol.rotorgram.api.event.message;
 
 import me.ranol.rotorgram.api.event.CallableEvent;
-import me.ranol.rotorgram.api.object.Chat;
+import me.ranol.rotorgram.api.object.chat.Chat;
 import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.api.object.message.MessageType;
 import me.ranol.rotorgram.api.object.users.User;
-import me.ranol.rotorgram.gson.message.GsonMessage;
 
 public class MessageEvent<T extends Message> extends CallableEvent {
 	private final T message;

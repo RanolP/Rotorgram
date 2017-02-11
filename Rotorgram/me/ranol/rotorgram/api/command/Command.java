@@ -1,6 +1,18 @@
 package me.ranol.rotorgram.api.command;
 
-public class Command {
+import java.util.List;
+
+public class Command implements CommandExecutor {
 	private String label;
-	private String[] aliases;
+	private List<String> aliases;
+	private String usage;
+	private CommandExecutor executor;
+
+	@Override
+	public boolean onCommand(CommandData data) {
+		if (executor != null) {
+			return executor.onCommand(data);
+		}
+		return false;
+	}
 }

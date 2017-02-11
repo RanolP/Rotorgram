@@ -1,30 +1,23 @@
 package me.ranol.rotorgram.api.object.inline;
 
-import me.ranol.rotorgram.api.object.Validatable;
-import me.ranol.rotorgram.api.object.users.User;
-import me.ranol.rotorgram.gson.inline.GsonInlineQuery;
+import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.LocationObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.SendableObject;
+import me.ranol.rotorgram.api.abstraction.interfaces.StringIdObject;
+import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
+import me.ranol.rotorgram.api.abstraction.keysets.StandardKeySet;
 
-public class InlineQuery extends Validatable<GsonInlineQuery> {
-	private User from;
+public class InlineQuery extends TelegramObject implements StringIdObject, SendableObject, LocationObject, StandardKeySet, OtherKeySet {
 
-	public InlineQuery(GsonInlineQuery handle) {
-		super(handle);
-		from = new User(handle.fromUser);
+	public InlineQuery() {
+		addKeys(ID_STRING, FROM, LOCATION, QUERY, OFFSET_STRING);
 	}
 
 	public String getText() {
-		return handle.query;
+		return getString(QUERY);
 	}
 
-	public String getId() {
-		return handle.id;
-	}
-
-	public User getSender() {
-		return from;
-	}
-
-	public boolean hasSender() {
-		return from.isValid();
+	public String getOffset() {
+		return getString(OFFSET_STRING);
 	}
 }

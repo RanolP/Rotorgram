@@ -24,16 +24,12 @@ public class TestRanolBot extends TelegramBot {
 	@Override
 	public void onStart() {
 		registerListener(TextMessageEvent.class, e -> {
-			String room;
+			String message = "";
 			if (e.hasChat() && e.getChat().hasTitle()) {
-				room = "[" + e.getChat().getTitle() + "]";
-			} else {
-				room = "";
+				message += "[" + e.getChat().getTitle() + "]";
 			}
-			if (room.contains("null")) room = "";
-			String user = "Unknown";
-			if (e.hasMessageSender()) user = "@" + e.getMessageSender().getUsername();
-			System.out.println((room + " " + user + " : " + e.getMessageText() + " / " + e.getMessageType()).trim());
+			if (e.hasMessageSender()) message += " @" + e.getMessageSender().getUsername();
+			System.out.println((message + " : " + e.getMessageText() + " / " + e.getMessageType()).trim());
 		});
 		registerListener(UserJoinEvent.class, e -> {
 			new TextMessageBuilder().message("어서와, " + e.getJoinedUser().getUsername())
@@ -75,11 +71,14 @@ public class TestRanolBot extends TelegramBot {
 			switch (e.getQueryText()) {
 				case "":
 					answerInlineQuery(e.getQueryId(),
-									  new GsonInlineQueryResult[] {finalchild.get(), xkd.get()},
+									  new GsonInlineQueryResult[] {ggung.get(), finalchild.get(), xkd.get()},
 									  null,
 									  null, null,
 									  null);
 					break;
+				case "ggung":
+					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {ggung.get()}, null, null, null,
+									  null);
 				case "xkd":
 					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {xkd.get()}, null, null, null,
 									  null);

@@ -1,17 +1,19 @@
 package me.ranol.rotorgram.api.object;
 
-import me.ranol.rotorgram.gson.GsonLocation;
+import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
 
-public class Location extends Validatable<GsonLocation> {
-	public Location(GsonLocation handle) {
-		super(handle);
+public class Location extends TelegramObject implements OtherKeySet {
+
+	public Location() {
+		addKeys(LONGITUDE, LATITUDE);
 	}
 
 	public float getLatitude() {
-		return handle.latitude;
+		return getFloat(LATITUDE);
 	}
 
 	public float getLongitude() {
-		return handle.longitude;
+		return getFloat(LATITUDE);
 	}
 }

@@ -1,59 +1,64 @@
 package me.ranol.rotorgram.api.object;
 
-import com.sun.org.apache.bcel.internal.generic.IREM;
+import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.AttributeKey;
+import me.ranol.rotorgram.api.abstraction.interfaces.MessageObject;
+import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
 import me.ranol.rotorgram.api.object.inline.ChosenInlineResult;
 import me.ranol.rotorgram.api.object.inline.InlineQuery;
 import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.api.object.message.MessageType;
-import me.ranol.rotorgram.gson.GsonUpdate;
-import me.ranol.rotorgram.gson.message.GsonMessage;
-import me.ranol.rotorgram.utils.Util;
 
-import java.util.function.Function;
+import static me.ranol.rotorgram.api.object.Update.UpdateKeySet.*;
 
-public class Update extends Validatable<GsonUpdate> {
-	private InlineQuery iquery;
-	private ChosenInlineResult result;
+public class Update extends TelegramObject implements MessageObject, OtherKeySet {
 
-	public Update(GsonUpdate handle) {
-		super(handle);
-		iquery = new InlineQuery(handle.inlineQuery);
-		result = new ChosenInlineResult(handle.chosenInlineResult);
+	static class UpdateKeySet {
+		static final AttributeKey<Long> ID = new AttributeKey<>("update_id", Long.class);
+		static final AttributeKey<InlineQuery> INLINE_QUERY = new AttributeKey<>("inline_query", InlineQuery.class);
+		static final AttributeKey<ChosenInlineResult> CHOSEN_INLINE_RESULT = new AttributeKey<>("chosen_inline_result",
+																								ChosenInlineResult.class);
+		static final AttributeKey<Message> MESSAGE = new AttributeKey<>("message", Message.class);
+		static final AttributeKey<Message> EDITED_MESSAGE = new AttributeKey<>("edited_message", Message.class);
+		static final AttributeKey<Message> CHANNEL_POST = new AttributeKey<>("edited_message", Message.class);
+		static final AttributeKey<Message> EDITED_CHANNEL_POST = new AttributeKey<>("edited_message", Message.class);
+		static final AttributeKey<CallbackQuery> CALLBACK_QUERY = new AttributeKey<>("edited_message",
+																					 CallbackQuery.class);
+	}
+
+	public Update() {
+		addKeys(ID, INLINE_QUERY, CHOSEN_INLINE_RESULT, MESSAGE, EDITED_MESSAGE);
 	}
 
 	public Message getMessage() {
-		return getMessage(Message::new);
-	}
-
-	public <T extends Message> T getMessage(Function<GsonMessage, T> func) {
-		return func.apply(handle.incomingMessage);
+		return get(MESSAGE);
 	}
 
 	public long getId() {
-		return Util.convert(handle.id);
+		return getLong(ID);
 	}
 
 	public boolean hasMessage() {
-		return handle.incomingMessage != null;
+		return getMessage() != null;
 	}
 
 	public boolean hasInlineQuery() {
-		return iquery.isValid();
+		return getInlineQuery() != null;
 	}
 
 	public InlineQuery getInlineQuery() {
-		return iquery;
+		return get(INLINE_QUERY);
 	}
 
 	public ChosenInlineResult getChosenInlineResult() {
-		return result;
+		return get(CHOSEN_INLINE_RESULT);
 	}
 
 	public boolean hasChosenInlineResult() {
-		return result.isValid();
+		return getChosenInlineResult() != null;
 	}
 
 	public MessageType getMessageType() {
-		return Message.parseType(handle.incomingMessage);
+		return getMessage().getType();
 	}
 }
