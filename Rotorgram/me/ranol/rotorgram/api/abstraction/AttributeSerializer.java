@@ -19,6 +19,9 @@ public class AttributeSerializer implements JsonSerializer<SimpleAttributable>, 
 					result.set(k, c.deserialize(key.getValue(), k.getType()));
 				}
 			}
+			if (result instanceof Initializable) {
+				((Initializable) result).initialize();
+			}
 			return result;
 		} catch (Exception ex) {
 

@@ -6,8 +6,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SimpleAttributable implements Attributable {
-	private static final HashSet<Class> c = new HashSet<>();
-
 	private HashMap<AttributeKey, Object> set = new HashMap<>();
 
 	@Override
@@ -33,6 +31,10 @@ public class SimpleAttributable implements Attributable {
 		return set.keySet();
 	}
 
+	public boolean containsKey(AttributeKey key) {
+		return set.containsKey(key);
+	}
+
 	protected void addKeys(AttributeKey... keys) {
 		for (AttributeKey key : keys) {
 			set.put(key, null);
@@ -49,13 +51,13 @@ public class SimpleAttributable implements Attributable {
 
 	public static <T extends SimpleAttributable> T mapping(T origin, Attributable at) {
 		for (AttributeKey key : at.keySet()) {
-			if (!origin.contains(key)) continue;
+			if (!origin.containsKey(key)) continue;
 			origin.set(key, at.get(key));
 		}
 		return origin;
 	}
 
-	protected AttributeKey getKey(String name) {
+	AttributeKey getKey(String name) {
 		for (AttributeKey k : set.keySet()) {
 			if (k.name().equals(name)) return k;
 		}

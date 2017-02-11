@@ -28,7 +28,6 @@ public class UpdateLooper {
 			if (getBoolean(o, "ok")) {
 				long last = offset;
 				for (Update u : GsonManager.parse(o.get("result"), Update[].class)) {
-					System.out.println(u);
 					if (u.getId() <= offset) continue;
 					if (u.getId() > last) last = u.getId();
 					new Thread(() -> Static.callEvent(new UpdateEvent(u))).start();

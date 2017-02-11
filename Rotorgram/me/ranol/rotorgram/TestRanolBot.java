@@ -1,6 +1,7 @@
 package me.ranol.rotorgram;
 
 import me.ranol.rotorgram.api.event.InlineQueryEvent;
+import me.ranol.rotorgram.api.event.UpdateEvent;
 import me.ranol.rotorgram.api.event.message.SimpleMessageEvent;
 import me.ranol.rotorgram.api.event.message.StickerMessageEvent;
 import me.ranol.rotorgram.api.event.message.TextMessageEvent;
@@ -14,15 +15,21 @@ public class TestRanolBot extends TelegramBot {
 	TextQueryResult xkd = new TextQueryResult();
 	TextQueryResult finalchild = new TextQueryResult();
 	TextQueryResult ggung = new TextQueryResult();
+	TextQueryResult tr = new TextQueryResult();
 
 	{
 		xkd.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
 		finalchild.setVisibleString("파차님 찬양").setString("*파차님 갱장헤!*").setParseMode("MARKDOWN");
 		ggung.setVisibleString("껑아").setString("*GgungAh* 껑아").setParseMode("MARKDOWN");
+		tr.setVisibleString("태룡").setString("*xkd :* 태룡님은 어디에 계시는가.").setParseMode("MARKDOWN");
 	}
 
 	@Override
 	public void onStart() {
+		registerListener(UpdateEvent.class, e -> {
+			if (e.hasInlineQuery() && e.getInlineQuery().getSender().getId() == 98857360) {
+			}
+		});
 		registerListener(TextMessageEvent.class, e -> {
 			String message = "";
 			if (e.hasChat() && e.getChat().hasTitle()) {
@@ -71,7 +78,7 @@ public class TestRanolBot extends TelegramBot {
 			switch (e.getQueryText()) {
 				case "":
 					answerInlineQuery(e.getQueryId(),
-									  new GsonInlineQueryResult[] {ggung.get(), finalchild.get(), xkd.get()},
+									  new GsonInlineQueryResult[] {ggung.get(), finalchild.get(), xkd.get(), tr.get()},
 									  null,
 									  null, null,
 									  null);
@@ -85,6 +92,10 @@ public class TestRanolBot extends TelegramBot {
 					break;
 				case "fc":
 					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {finalchild.get()}, null, null,
+									  null,
+									  null);
+				case "tr":
+					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {tr.get()}, null, null,
 									  null,
 									  null);
 					break;

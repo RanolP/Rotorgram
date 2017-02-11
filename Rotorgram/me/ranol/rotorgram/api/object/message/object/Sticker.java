@@ -7,7 +7,7 @@ import me.ranol.rotorgram.api.abstraction.keysets.OtherKeySet;
 
 public class Sticker extends TFile implements StringIdObject, OtherKeySet, SizableObject, ThumbnailObject {
 	public Sticker() {
-		addKeys(ID_STRING, EMOJI);
+		addKeys(WIDTH, HEIGHT, THUMB, ID_STRING, EMOJI);
 	}
 
 	public String getEmoji() {

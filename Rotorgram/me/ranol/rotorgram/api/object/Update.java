@@ -18,7 +18,6 @@ public class Update extends TelegramObject implements MessageObject, OtherKeySet
 		static final AttributeKey<InlineQuery> INLINE_QUERY = new AttributeKey<>("inline_query", InlineQuery.class);
 		static final AttributeKey<ChosenInlineResult> CHOSEN_INLINE_RESULT = new AttributeKey<>("chosen_inline_result",
 																								ChosenInlineResult.class);
-		static final AttributeKey<Message> MESSAGE = new AttributeKey<>("message", Message.class);
 		static final AttributeKey<Message> EDITED_MESSAGE = new AttributeKey<>("edited_message", Message.class);
 		static final AttributeKey<Message> CHANNEL_POST = new AttributeKey<>("edited_message", Message.class);
 		static final AttributeKey<Message> EDITED_CHANNEL_POST = new AttributeKey<>("edited_message", Message.class);

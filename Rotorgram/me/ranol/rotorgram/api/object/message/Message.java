@@ -1,6 +1,7 @@
 package me.ranol.rotorgram.api.object.message;
 
 import me.ranol.rotorgram.api.TelegramObject;
+import me.ranol.rotorgram.api.abstraction.Initializable;
 import me.ranol.rotorgram.api.abstraction.interfaces.LongIdObject;
 import me.ranol.rotorgram.api.abstraction.keysets.MessageKeySet;
 import me.ranol.rotorgram.api.object.chat.Chat;
@@ -8,7 +9,7 @@ import me.ranol.rotorgram.api.object.users.User;
 
 import java.util.function.Supplier;
 
-public class Message extends TelegramObject implements LongIdObject, MessageKeySet {
+public class Message extends TelegramObject implements LongIdObject, MessageKeySet, Initializable {
 
 	private MessageType type;
 
@@ -18,7 +19,11 @@ public class Message extends TelegramObject implements LongIdObject, MessageKeyS
 				CAPTION, CONTACT, LOCATION, VENUE, NEW_MEMBER, LEFT_MEMBER, NEW_TITLE, NEW_PHOTO, DELETE_CHAT_PHOTO,
 				GROUP_CREATED, SUPERGROUP_CREATED, CHANNEL_CREATED, MIGRATE_TO_CHAT_ID, MIGRATE_FROM_CHAT_ID,
 				PINNED_MESSAGE);
-		type = parseType(this);
+	}
+
+	@Override
+	public void initialize() {
+		type = parseType();
 	}
 
 	public long getId() {
@@ -46,43 +51,45 @@ public class Message extends TelegramObject implements LongIdObject, MessageKeyS
 	}
 
 	public <T extends Message> T parseAs(Supplier<T> instance) {
-		return mapping(instance.get(), this);
+		T result = mapping(instance.get(), this);
+		result.initialize();
+		return result;
 	}
 
-	public static MessageType parseType(Message message) {
-		if (message.get(CHANNEL_CREATED)) {
+	public MessageType parseType() {
+		if (getBoolean(CHANNEL_CREATED)) {
 			return MessageType.CHANNEL_CREATE;
-		} else if (message.get(GROUP_CREATED)) {
+		} else if (getBoolean(GROUP_CREATED)) {
 			return MessageType.GROUP_CREATE;
-		} else if (message.get(SUPERGROUP_CREATED)) {
+		} else if (getBoolean(SUPERGROUP_CREATED)) {
 			return MessageType.SUPER_GROUP_CREATE;
-		} else if (message.contains(NEW_MEMBER)) {
+		} else if (contains(NEW_MEMBER)) {
 			return MessageType.JOIN_USER;
-		} else if (message.contains(LEFT_MEMBER)) {
+		} else if (contains(LEFT_MEMBER)) {
 			return MessageType.LEFT_USER;
-		} else if (message.contains(PINNED_MESSAGE)) {
+		} else if (contains(PINNED_MESSAGE)) {
 			return MessageType.PINNING_MESSAGE;
-		} else if (message.get(DELETE_CHAT_PHOTO)) {
+		} else if (getBoolean(DELETE_CHAT_PHOTO)) {
 			return MessageType.REMOVE_CHAT_PHOTO;
-		} else if (message.contains(NEW_PHOTO)) {
+		} else if (contains(NEW_PHOTO)) {
 			return MessageType.SET_CHAT_PHOTO;
-		} else if (message.contains(AUDIO)) {
+		} else if (contains(AUDIO)) {
 			return MessageType.AUDIO;
-		} else if (message.contains(CONTACT)) {
+		} else if (contains(CONTACT)) {
 			return MessageType.CONTACT;
-		} else if (message.contains(DOCUMENT)) {
+		} else if (contains(DOCUMENT)) {
 			return MessageType.DOCUMENT;
-		} else if (message.contains(STICKER)) {
+		} else if (contains(STICKER)) {
 			return MessageType.STICKER;
-		} else if (message.contains(TEXT)) {
+		} else if (contains(TEXT)) {
 			return MessageType.TEXT;
-		} else if (message.contains(VENUE)) {
+		} else if (contains(VENUE)) {
 			return MessageType.VENUE;
-		} else if (message.contains(VIDEO)) {
+		} else if (contains(VIDEO)) {
 			return MessageType.VIDEO;
-		} else if (message.contains(VOICE)) {
+		} else if (contains(VOICE)) {
 			return MessageType.VOICE;
-		} else if (message.contains(PHOTO)) {
+		} else if (contains(PHOTO)) {
 			return MessageType.IMAGE;
 		}
 		return MessageType.UNKNOWN;
