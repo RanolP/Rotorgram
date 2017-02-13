@@ -1,35 +1,32 @@
 package me.ranol.rotorgram;
 
 import me.ranol.rotorgram.api.event.InlineQueryEvent;
-import me.ranol.rotorgram.api.event.UpdateEvent;
 import me.ranol.rotorgram.api.event.message.SimpleMessageEvent;
 import me.ranol.rotorgram.api.event.message.StickerMessageEvent;
 import me.ranol.rotorgram.api.event.message.TextMessageEvent;
 import me.ranol.rotorgram.api.event.user.UserJoinEvent;
 import me.ranol.rotorgram.api.event.user.UserLeftEvent;
-import me.ranol.rotorgram.api.object.inline.TextQueryResult;
-import me.ranol.rotorgram.api.object.message.builder.TextMessageBuilder;
-import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
+import me.ranol.rotorgram.api.functions.answerInlineQuery;
+import me.ranol.rotorgram.api.functions.sendMessage;
+import me.ranol.rotorgram.api.object.inline.result.TextQueryResult;
 
 public class TestRanolBot extends TelegramBot {
 	TextQueryResult xkd = new TextQueryResult();
 	TextQueryResult finalchild = new TextQueryResult();
 	TextQueryResult ggung = new TextQueryResult();
 	TextQueryResult tr = new TextQueryResult();
+	TextQueryResult cc = new TextQueryResult();
 
 	{
-		xkd.setVisibleString("탕냥이 귀여워").setString("*탕냥이 기여어!*").setParseMode("MARKDOWN");
-		finalchild.setVisibleString("파차님 찬양").setString("*파차님 갱장헤!*").setParseMode("MARKDOWN");
-		ggung.setVisibleString("껑아").setString("*GgungAh* 껑아").setParseMode("MARKDOWN");
-		tr.setVisibleString("태룡").setString("*xkd :* 태룡님은 어디에 계시는가.").setParseMode("MARKDOWN");
+		cc.title("circlt?").text("`Circlt` 따위 없다, *GgungAh* 마이 웨이").parseMode("MARKDOWN");
+		xkd.title("탕냥이 귀여워").text("*탕냥이 기여어!*").parseMode("MARKDOWN");
+		finalchild.title("파차님 찬양").text("*파차님 갱장헤!*").parseMode("MARKDOWN");
+		ggung.title("껑아").text("*GgungAh* 껑아").parseMode("MARKDOWN");
+		tr.title("태룡").text("*xkd :* 태룡님은 어디에 계시는가.").parseMode("MARKDOWN");
 	}
 
 	@Override
 	public void onStart() {
-		registerListener(UpdateEvent.class, e -> {
-			if (e.hasInlineQuery() && e.getInlineQuery().getSender().getId() == 98857360) {
-			}
-		});
 		registerListener(TextMessageEvent.class, e -> {
 			String message = "";
 			if (e.hasChat() && e.getChat().hasTitle()) {
@@ -39,14 +36,16 @@ public class TestRanolBot extends TelegramBot {
 			System.out.println((message + " : " + e.getMessageText() + " / " + e.getMessageType()).trim());
 		});
 		registerListener(UserJoinEvent.class, e -> {
-			new TextMessageBuilder().message("어서와, " + e.getJoinedUser().getUsername())
-									.id(e.getChatId())
-									.reply(e.getMessage().getId()).send();
+			new sendMessage().id(e.getChatId())
+							 .text("어서와, " + e.getJoinedUser().getUsername())
+							 .reply(e.getMessage().getId())
+							 .invoke();
 		});
 		registerListener(UserLeftEvent.class, e -> {
-			System.out.println(new TextMessageBuilder().message("잘가, " + e.getLeftedUser().getUsername())
-													   .id(e.getChatId())
-													   .reply(e.getMessage().getId()).send());
+			new sendMessage().id(e.getChatId())
+							 .text("잘가, " + e.getLeftedUser().getUsername())
+							 .reply(e.getMessage().getId())
+							 .invoke();
 		});
 		registerListener(StickerMessageEvent.class, e -> {
 			String room;
@@ -77,27 +76,26 @@ public class TestRanolBot extends TelegramBot {
 		registerListener(InlineQueryEvent.class, e -> {
 			switch (e.getQueryText()) {
 				case "":
-					answerInlineQuery(e.getQueryId(),
-									  new GsonInlineQueryResult[] {ggung.get(), finalchild.get(), xkd.get(), tr.get()},
-									  null,
-									  null, null,
-									  null);
+					new answerInlineQuery().id(e.getQueryId())
+										   .add(cc)
+										   .add(ggung)
+										   .add(finalchild)
+										   .add(xkd)
+										   .add(tr)
+										   .invoke();
 					break;
 				case "ggung":
-					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {ggung.get()}, null, null, null,
-									  null);
+					new answerInlineQuery().id(e.getQueryId()).add(ggung).invoke();
+					break;
 				case "xkd":
-					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {xkd.get()}, null, null, null,
-									  null);
+					new answerInlineQuery().id(e.getQueryId()).add(xkd).invoke();
 					break;
 				case "fc":
-					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {finalchild.get()}, null, null,
-									  null,
-									  null);
+					new answerInlineQuery().id(e.getQueryId()).add(finalchild).invoke();
 				case "tr":
-					answerInlineQuery(e.getQueryId(), new GsonInlineQueryResult[] {tr.get()}, null, null,
-									  null,
-									  null);
+					new answerInlineQuery().id(e.getQueryId()).add(tr).invoke();
+				case "cc":
+					new answerInlineQuery().id(e.getQueryId()).add(cc).invoke();
 					break;
 			}
 		});

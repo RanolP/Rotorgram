@@ -46,6 +46,7 @@ public class Requester {
 				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 				ContentType t = ContentType.create("text/plain", Consts.UTF_8);
 				for (Entry<String, String> e : entries.entrySet()) {
+					if (e.getValue() == null) continue;
 					builder.addTextBody(e.getKey(), e.getValue(), t);
 				}
 				post.setEntity(builder.build());

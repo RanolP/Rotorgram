@@ -48,6 +48,7 @@ public class Static {
 			bot.setToken(token);
 			bot.start();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

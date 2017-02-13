@@ -1,36 +1,23 @@
 package me.ranol.rotorgram.api.abstraction.keysets;
 
 import me.ranol.rotorgram.api.abstraction.AttributeKey;
-import me.ranol.rotorgram.api.object.chat.Chat;
 import me.ranol.rotorgram.api.object.PhotoSize;
-import me.ranol.rotorgram.api.object.game.Game;
+import me.ranol.rotorgram.api.object.chat.Chat;
 import me.ranol.rotorgram.api.object.message.Message;
 import me.ranol.rotorgram.api.object.message.MessageEntity;
-import me.ranol.rotorgram.api.object.message.object.*;
 import me.ranol.rotorgram.api.object.users.User;
 
 public interface MessageKeySet {
 	AttributeKey<Long> MESSAGE_ID = new AttributeKey<>("message_id", Long.class);
 	AttributeKey<Long> DATE = new AttributeKey<>("date", Long.class);
-	AttributeKey<Chat> CHAT = new AttributeKey<>("chat", Chat.class);
 	AttributeKey<User> FORWARD_FROM = new AttributeKey<>("forward_from", User.class);
 	AttributeKey<Chat> FORWARD_FROM_CHAT = new AttributeKey<>("forward_from_chat", Chat.class);
 	AttributeKey<Long> FORWARD_FROM_ID = new AttributeKey<>("forward_from_message_id", Long.class);
 	AttributeKey<Long> FORWARD_DATE = new AttributeKey<>("forward_date", Long.class);
 	AttributeKey<Message> REPLY_TO = new AttributeKey<>("reply_to_message", Message.class);
 	AttributeKey<Long> EDIT_DATE = new AttributeKey<>("edit_date", Long.class);
-	AttributeKey<String> TEXT = new AttributeKey<>("text", String.class);
 	AttributeKey<MessageEntity[]> ENTITIES = new AttributeKey<>("entities", MessageEntity[].class);
-	AttributeKey<Audio> AUDIO = new AttributeKey<>("audio", Audio.class);
-	AttributeKey<Document> DOCUMENT = new AttributeKey<>("document", Document.class);
-	AttributeKey<Game> GAME = new AttributeKey<Game>("game", Game.class);
 	AttributeKey<PhotoSize[]> PHOTO = new AttributeKey<>("photo", PhotoSize[].class);
-	AttributeKey<Sticker> STICKER = new AttributeKey<>("sticker", Sticker.class);
-	AttributeKey<Video> VIDEO = new AttributeKey<>("video", Video.class);
-	AttributeKey<Voice> VOICE = new AttributeKey<>("voice", Voice.class);
-	AttributeKey<String> CAPTION = new AttributeKey<>("caption", String.class);
-	AttributeKey<Contact> CONTACT = new AttributeKey<>("contact", Contact.class);
-	AttributeKey<Venue> VENUE = new AttributeKey<>("venue", Venue.class);
 	AttributeKey<User> NEW_MEMBER = new AttributeKey<>("new_chat_member", User.class);
 	AttributeKey<User> LEFT_MEMBER = new AttributeKey<>("left_chat_member", User.class);
 	AttributeKey<String> NEW_TITLE = new AttributeKey<>("new_chat_title", String.class);

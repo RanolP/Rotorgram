@@ -1,12 +1,9 @@
 package me.ranol.rotorgram;
 
-import com.google.gson.JsonElement;
-import me.ranol.rotorgram.annotations.Required;
 import me.ranol.rotorgram.api.BotProperty;
 import me.ranol.rotorgram.api.event.*;
-import me.ranol.rotorgram.api.object.chat.Chat;
+import me.ranol.rotorgram.api.functions.getMe;
 import me.ranol.rotorgram.api.object.users.User;
-import me.ranol.rotorgram.gson.inline.GsonInlineQueryResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +23,7 @@ public class TelegramBot extends ListenerSet {
 	}
 
 	public final void start() {
-		me = GsonManager.parse(Requester.request("getMe")
-										.getAsJsonObject()
-										.get("result"), User.class);
+		me = new getMe().invoke();
 		if (token == null) throw new IllegalStateException("Token must be non-null value.");
 		prop = new BotProperty(new File(System.getProperty("user.dir"), "BotConfig.json"));
 		looper = new UpdateLooper();
@@ -69,42 +64,6 @@ public class TelegramBot extends ListenerSet {
 
 	public User getMe() {
 		return me;
-	}
-
-	public JsonElement sendMessage(@Required Chat chat, @Required String message, Boolean notify, Long replyTo,
-								   String parseMode, Boolean webPagePreview) {
-		return sendMessage(chat.getId(), message, notify, replyTo, parseMode, webPagePreview);
-	}
-
-	public JsonElement sendMessage(@Required Long chatId, @Required String message, Boolean notify, Long replyTo,
-								   String parseMode, Boolean webPagePreview) {
-		return sendMessage(Long.toString(chatId), message, notify, replyTo, parseMode, webPagePreview);
-	}
-
-	public JsonElement sendMessage(@Required String chatId, @Required String message, Boolean notify, Long replyTo,
-								   String parseMode, Boolean webPagePreview) {
-		return Requester.request("sendMessage", new EntryBuilder().add("chat_id", chatId)
-																  .add("text", message)
-																  .addIf(notify != null && !notify,
-																		 "disable_notification", "false")
-																  .addIfNonNull("reply_to_text_id", replyTo)
-																  .addIfNonNull("parse_mode", parseMode)
-																  .addIf(webPagePreview != null && !webPagePreview,
-																		 "disable_web_page_preview", "true")
-																  .build());
-	}
-
-	public JsonElement answerInlineQuery(@Required String inlineQueryId, @Required GsonInlineQueryResult[] results,
-										 Long cacheTime, Boolean personal, String nextOffset,
-										 String switchPMParameter) {
-		return Requester.request("answerInlineQuery", new EntryBuilder().add("inline_query_id", inlineQueryId)
-																		.addArray("results", results)
-																		.addIfNonNull("cache_time", cacheTime)
-																		.addIfNonNull("is_personal", personal)
-																		.addIfNonNull("next_offset", nextOffset)
-																		.addIfNonNull("switch_pm_parameter",
-																					  switchPMParameter)
-																		.build());
 	}
 
 	public BotProperty getProperty() {
